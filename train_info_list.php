@@ -13,25 +13,52 @@
 
 
   <?php
+  $showAlert = false;
   if (isset($_GET['insert']) && $_GET['insert'] == 'success') {
+    $showAlert = true;
+    $alertMsg = 'Train details are inserted successfully';
+    $bgColor = 'bg-green-50';
+    $textColor = 'text-green-800';
+    $alertIcon = '<svg class="h-5 w-5 text-green-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.857-9.809a.75.75 0 00-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 10-1.06 1.061l2.5 2.5a.75.75 0 001.137-.089l4-5.5z" clip-rule="evenodd" />
+  </svg>';
+  }
+  if (isset($_GET['update']) && $_GET['update'] == 'success') {
+    $showAlert = true;
+    $alertMsg = 'The Train details have been updated successfully';
+    $bgColor = 'bg-green-50';
+    $textColor = 'text-green-800';
+    $alertIcon = '<svg class="h-5 w-5 text-green-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.857-9.809a.75.75 0 00-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 10-1.06 1.061l2.5 2.5a.75.75 0 001.137-.089l4-5.5z" clip-rule="evenodd" />
+  </svg>';
+  }
+  if (isset($_GET['delete']) && $_GET['delete'] == 'success') {
+    $showAlert = true;
+    $alertMsg = 'The Train details have been deleted successfully';
+    $bgColor = 'bg-red-50';
+    $textColor = 'text-red-800';
+    $alertIcon = '<svg class="h-5 w-5 text-red-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.28 7.22a.75.75 0 00-1.06 1.06L8.94 10l-1.72 1.72a.75.75 0 101.06 1.06L10 11.06l1.72 1.72a.75.75 0 101.06-1.06L11.06 10l1.72-1.72a.75.75 0 00-1.06-1.06L10 8.94 8.28 7.22z" clip-rule="evenodd" />
+  </svg>';
+  }
+
+  if ($showAlert == true) {
   ?>
-    <div class="rounded-md bg-green-50 p-4">
+    <div class="rounded-md <?php echo $bgColor; ?> p-4">
       <div class="flex">
         <div class="flex-shrink-0">
           <!-- Heroicon name: mini/check-circle -->
-          <svg class="h-5 w-5 text-green-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.857-9.809a.75.75 0 00-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 10-1.06 1.061l2.5 2.5a.75.75 0 001.137-.089l4-5.5z" clip-rule="evenodd" />
-          </svg>
+          <?php echo $alertIcon; ?>
         </div>
         <div class="ml-3">
-          <h3 class="text-sm font-medium text-green-800">Inserted Successfully</h3>
-          <div class="mt-2 text-sm text-green-700">
+          <h3 class="text-sm font-medium <?php echo $textColor; ?>"><?php echo $alertMsg; ?></h3>
+          <!-- <div class="mt-2 text-sm text-green-700">
             <p>Train details are inserted successfully</p>
-          </div>
+          </div> -->
           <div class="mt-4">
             <div class="-mx-2 -my-1.5 flex">
               <!-- <button type="button" class="rounded-md bg-green-50 px-2 py-1.5 text-sm font-medium text-green-800 hover:bg-green-100 focus:outline-none focus:ring-2 focus:ring-green-600 focus:ring-offset-2 focus:ring-offset-green-50">View status</button> -->
-              <button type="button" class="ml-3 rounded-md bg-green-50 px-2 py-1.5 text-sm font-medium text-green-800 hover:bg-green-100 focus:outline-none focus:ring-2 focus:ring-green-600 focus:ring-offset-2 focus:ring-offset-green-50">Dismiss</button>
+              <!-- <button type="button" class="ml-3 rounded-md bg-green-50 px-2 py-1.5 text-sm font-medium text-green-800 hover:bg-green-100 focus:outline-none focus:ring-2 focus:ring-green-600 focus:ring-offset-2 focus:ring-offset-green-50">Dismiss</button> -->
             </div>
           </div>
         </div>
@@ -41,34 +68,7 @@
   }
   ?>
 
-  <?php
-  if (isset($_GET['delete']) && $_GET['delete'] == 'success') {
-  ?>
-
-    <div class="rounded-md bg-red-50 p-4">
-      <div class="flex">
-        <div class="flex-shrink-0">
-          <svg class="h-5 w-5 text-red-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.28 7.22a.75.75 0 00-1.06 1.06L8.94 10l-1.72 1.72a.75.75 0 101.06 1.06L10 11.06l1.72 1.72a.75.75 0 101.06-1.06L11.06 10l1.72-1.72a.75.75 0 00-1.06-1.06L10 8.94 8.28 7.22z" clip-rule="evenodd" />
-          </svg>
-        </div>
-        <div class="ml-3">
-          <h3 class="text-sm font-medium text-red-800">The train details have been deleted successfully</h3>
-          <!-- <div class="mt-2 text-sm text-red-700">
-                <ul role="list" class="list-disc space-y-1 pl-5">
-                  <li>Please add another record</li>
-                </ul>
-              </div> -->
-        </div>
-      </div>
-    </div>
-
-  <?php
-  }
-  ?>
-
-
-  <div class="px-4 sm:px-6 lg:px-8 pt-20">
+  <div class="px-4 sm:px-6 lg:px-8 pt-10">
     <div class="sm:flex sm:items-center">
       <div class="sm:flex-auto">
         <h1 class="text-xl font-semibold text-gray-900">Train Details</h1>
@@ -128,7 +128,8 @@
                     <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6"><?php echo ucfirst($value['train_name']) ?></td>
                     <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500"><?php echo $value['train_no'] ?></td>
                     <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500"><?php echo $value['total_seat'] ?></td>
-                    <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500"><?php if($value['train_type']==0) echo "Passenger"; else echo "Express"; ?></td>
+                    <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500"><?php if ($value['train_type'] == 0) echo "Passenger";
+                                                                                  else echo "Express"; ?></td>
                     <td class="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6">
                       <a href="train_info.php?id=<?php echo $value['id'] ?>" class="text-indigo-600 hover:text-indigo-900">Edit<span class="sr-only">, Lindsay Walton</span></a>
                     </td>
@@ -139,17 +140,6 @@
                 <?php
                 }
                 ?>
-                <!-- <tr>
-                <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">Lindsay Walton</td>
-                <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">Front-end Developer</td>
-                <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">lindsay.walton@example.com</td>
-                <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">Member</td>
-                <td class="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6">
-                  <a href="#" class="text-indigo-600 hover:text-indigo-900">Edit<span class="sr-only">, Lindsay Walton</span></a>
-                </td>
-              </tr> -->
-
-                <!-- More people... -->
               </tbody>
             </table>
           </div>

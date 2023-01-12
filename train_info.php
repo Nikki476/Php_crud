@@ -10,9 +10,15 @@
   <div class="space-y-8 divide-y divide-gray-200 sm:space-y-5">
 
     <div class="space-y-6 pt-8 sm:space-y-5 sm:pt-10">
-      <div>
+    <div class="flex flex-row space-x-60">
+        <div>
         <h3 class="text-3xl font-bold text-amber-900 leading-6 mb-7">Train Details...</h3>
+        </div>
+        <div>
+        <a href="train_info_list.php" class="ml-3 inline-flex justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">List</a>
+        </div>
         <!-- <p class="mt-1 max-w-2xl text-sm text-gray-500">Use a permanent address where you can receive mail.</p> -->
+      </div>
       </div>
 
       <?php
@@ -47,14 +53,18 @@
       require_once 'db.php';
 
       if ($_POST) {
-        //print_r($_POST);
-        //.echo "Hi...";
+        // print_r($_POST);
+        //  exit;
         $trainName = $_POST['train_name'];
         $trainNo = $_POST['train_no'];
         $totalSeat = $_POST['total_seat'];
         $trainType = $_POST['train_type'];
         $creAt = date("Y-m-d H:i:s");
+        $trainId=$_POST['train_id'];
+       
 
+        if($trainId=='')
+        {
         // echo $creAt;
         $sql = "SELECT COUNT(id) as count from train_info WHERE train_name='$trainName'";
         $res = mysqli_query($conn, $sql);
@@ -75,11 +85,24 @@
             location.href = "train_info.php?insert=failure";
           </script>
       <?php }
-      }
+        }
+        else
+        {
+          $sql="UPDATE train_info SET  train_no='$trainNo', total_seat='$totalSeat',train_type='$trainType' WHERE id=$trainId";
+          if(mysqli_query($conn,$sql))
+          {?>
+          <script>
+            location.href="train_info_list.php?update=success";
+          </script>
+            
+          <?php 
+          }
+        }
+      } 
 
 
       //edit case
-      $tName = $tNo = $tseat = $tType = '';
+      $tName = $tNo = $tseat = $tType = $id= '';
       if (isset($_GET['id'])) {
         $id = $_GET['id'];
         $sql = "SELECT * FROM train_info WHERE id=$id";
@@ -96,11 +119,12 @@
       }
       ?>
       <form action="train_info.php" method="POST" class="space-y-8 divide-y divide-gray-200">
+        <input type="hidden" name="train_id" value="<?php echo $id ;?>">
         <div class="space-y-6 sm:space-y-5">
           <div class="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:border-t sm:border-gray-200 sm:pt-5">
             <label for="train_name" class="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2">Train Name</label>
             <div class="mt-1 sm:col-span-2 sm:mt-0">
-              <input type="text" name="train_name" id="train_name" value="<?php echo $tName; ?>" class="block w-full max-w-lg rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:max-w-xs sm:text-sm">
+              <input type="text" name="train_name" <?php if ($id != '') echo 'readonly' ?> id="train_name" value="<?php echo $tName; ?>" class="block w-full max-w-lg rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:max-w-xs sm:text-sm">
             </div>
           </div>
 
