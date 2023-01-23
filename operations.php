@@ -13,6 +13,8 @@
         function insert($table,$fields,$values)
         {
             $sql="INSERT INTO $table($fields) VALUES($values)";
+            // echo $sql;
+            // exit;
             $res=mysqli_query($this->conn,$sql);
             if($res)
             {
@@ -26,6 +28,8 @@
         function update($table,$fieldValue,$wField,$wValue)
         {
             $sql="UPDATE $table SET $fieldValue WHERE $wField=$wValue";
+            // echo $sql;
+            // exit;
             $res=mysqli_query($this->conn,$sql);
             if($res)
             {
@@ -49,12 +53,73 @@
                 return 0;
             }
         }
-        function getRow($table,$field,$id,)
+        function getRow($table,$arrWhere=array(),$arrValue=array(),$selectField='*')
         {
-            $sql="SELECT FROM $table WHERE $field=$id";
+            // print_r($arrWhere);
+            // print_r($arrValue);
+            $sql="SELECT $selectField FROM $table ";
+            if(!empty($arrWhere))
+            {
+                $sql.='Where ';
+                foreach($arrWhere as $key => $value)
+                {
+                    if($key!=0)
+                    {
+                        $sql.=" AND ";
+                    }
+                    $sql.="$value=$arrValue[$key]";
+                }
+
+            }
+            // echo $sql;
+            // exit;
+            
+            $res=mysqli_query($this->conn,$sql);
+            $data=mysqli_fetch_assoc($res);
+            return $data;
+        }
+        function getTable($table,$arrWhere=array(),$arrValue=array(),$orderField=false,$selectField='*')
+        {
+            $sql="SELECT $selectField FROM $table ";
+            if(!empty($arrWhere))
+            {
+                $sql.='Where ';
+                foreach($arrWhere as $key => $value)
+                {
+                    if($key!=0)
+                    {
+                        $sql.=" AND ";
+                    }
+                    $sql.="$value=$arrValue[$key]";
+                }
+            }
+            if($orderField)
+            {
+                $sql.="ORDER BY $orderField";
+            }
+            // echo $sql;
+            
+            $res=mysqli_query($this->conn,$sql);
+            $data=mysqli_fetch_all($res,MYSQLI_ASSOC);
+            return $data;
+        }
+        function getCount($table,$column,$arrWhere=array(),$arrValue=array())
+        {
+            $sql="SELECT COUNT($column) AS count FROM $table";
+            if(!empty($arrWhere))
+            {
+                $sql.='Where';
+            }
+            foreach($arrWhere as $key => $value)
+            {
+                if($key!=0)
+                {
+                    $sql.="AND";
+                }
+                $sql.="$value=$arrValue[$key]";
+            }
             $res=mysqli_query($this->conn,$sql);
             $data=mysqli_fetch_assoc($res);
             return $data;
         }
     }
-?>

@@ -10,7 +10,7 @@
   <div class="space-y-8 divide-y divide-gray-200 sm:space-y-5">
 
     <div class="space-y-6 pt-8 sm:space-y-5 sm:pt-10">
-    <div class="flex flex-row space-x-60">
+    <div class="flex flex-row">
         <div>
         <h3 class="text-3xl font-bold text-amber-900 leading-6 mb-7">Train Details...</h3>
         </div>
@@ -196,9 +196,6 @@
     </div>
   </div>
   </form>
-
-
-
 </body>
 
 </html>
